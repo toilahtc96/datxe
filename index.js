@@ -1,11 +1,11 @@
 const puppeteer = require('puppeteer');
-(async() => {
+test = (async() => {
 
     let bookcarUrl = 'https://hasonhaivan.vn/admin_lv2/modules/account/login.php';
 
 
-    let browser = await puppeteer.launch({ headless: false });
-    // let browser = await puppeteer.launch();
+    // let browser = await puppeteer.launch({ headless: false });
+    let browser = await puppeteer.launch();
     let page = await browser.newPage();
 
     await page.goto(bookcarUrl, { waitUntil: 'networkidle2' });
