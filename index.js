@@ -6,8 +6,8 @@ test = (async() => {
 
     // let browser = await puppeteer.launch({ headless: false });
     let browser = await puppeteer.launch({
-        headless: false,
-        args: ['--no-sandbox', '--disable-setuid-sandbox']
+        headless: false
+        // args: ['--no-sandbox', '--disable-setuid-sandbox']
      });
     let page = await browser.newPage();
 
