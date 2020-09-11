@@ -395,6 +395,9 @@
         "buffer-crc32": "~0.2.3",
         "fd-slicer": "~1.1.0"
       }
-    }
+    },
+	"scripts": {
+    "start": "node index.js"
+}
   }
 }
