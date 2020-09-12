@@ -12,7 +12,7 @@ test = (async () => {
 
 
   const browser = await puppeteer.launch({
-    headless: false,
+    headless: true,
     args: ["--no-sandbox"]
   });
   // let browser = await puppeteer.launch({
