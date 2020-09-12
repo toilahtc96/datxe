@@ -8,7 +8,7 @@ async function main() {
   const tab = await browser.newPage();
   const text = await (await tab.goto("http://example.com/")).text();
   console.log(text);
-  console.log("done");
+  console.log("donea");
   browser.close();
 }
 
