@@ -10,6 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "csv-stringify": "^5.5.1",
+    "file-system": "^2.2.2",
     "puppeteer": "^2.1.1"
   }
 }
