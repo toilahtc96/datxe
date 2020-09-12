@@ -4,7 +4,10 @@ test = (async() => {
     let bookcarUrl = 'https://hasonhaivan.vn/admin_lv2/modules/account/login.php';
 
 
-    let browser = await puppeteer.launch({ headless: false });
+     const browser = await puppeteer.launch({
+    headless: true,
+    args: ["--no-sandbox"]
+  });
     // let browser = await puppeteer.launch({
         // headless: false
         // args: ['--no-sandbox', '--disable-setuid-sandbox']
