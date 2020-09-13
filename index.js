@@ -1,8 +1,35 @@
 const puppeteer = require('puppeteer');
 const stringify = require('csv-stringify');
 const fs = require('file-system');
-const input = []
+const nodemailer = require('nodemailer')
+const smtpTransport = require('nodemailer-smtp-transport');
 
+const input = []
+const tuyenConst = {
+  MyDinhLaoCai: "1",
+  GiaLamLaoCai: "2",
+  HĐTOUR: "4",
+  YenNghiaLaoCai: "5",
+  MyDinhSapa: "6",
+  YenNghiaSapa: "8",
+  MyDinhBacHa: "10",
+  SonTayLaoCai: "11",
+  LaoCaiHaTinh: "13",
+  HDHaNoiSapa: "15",
+  HDHaNoiLaoCai: "16",
+  HDHaNoiBacHa: "9999",
+  HDHaNoiLaoCai: "10000",
+  HDGiaiPhongSapa: "10002",
+  HDGiaiPhongLaoCai: "10005",
+  HDGiaiPhongADV: "10009",
+  HDHaNoiADV: "10013",
+}
+
+const caConst = {
+  casang: "1",
+  cachieu: "2",
+  catoi: "3"
+}
 
 test = (async () => {
 
@@ -12,7 +39,7 @@ test = (async () => {
 
 
   const browser = await puppeteer.launch({
-    headless: true,
+    headless: false,
     args: ["--no-sandbox"]
   });
   // let browser = await puppeteer.launch({
@@ -46,11 +73,11 @@ test = (async () => {
   });
 
   await page.waitForSelector(".view_adm_search_element");
-  await page.select('.form-control.bv_form_tuyen', "3");
+  await page.select('.form-control.bv_form_tuyen', tuyenConst.MyDinhSapa);
   await page.waitFor(4000)
 
-  await page.select(".form-control.bvv_ca_select", "1")
-  await page.$eval('.form-control.bv_form_day.hasDatepicker', el => el.value = '16-09-2020');
+  await page.select(".form-control.bvv_ca_select", caConst.casang)
+  await page.$eval('.form-control.bv_form_day.hasDatepicker', el => el.value = '18-09-2020');
 
 
 
@@ -62,16 +89,11 @@ test = (async () => {
       // chuyen =
       // <span><b>13:15</b>  ← 13:15 &nbsp; MDI → SPA - 24B00569</span>
       // <span class="bvt_so_cho stt_1">&nbsp;&nbsp;<b>44/44</b></span>
-      console.log('\n')
       const dataChuyen = chuyen.getElementsByTagName('span');
       for (const data of dataChuyen) {
         var thongtinchuyen = data.innerText;
-        console.log(thongtinchuyen)
-        console.log('\t')
         input.push(thongtinchuyen);
-        input.push("\n")
       }
-      console.log('\n')
 
 
     }
@@ -80,8 +102,32 @@ test = (async () => {
   var arrayData = Array.from(dataChuyen)
   console.log(arrayData)
   stringify(arrayData, function (err, output) {
-    fs.writeFile("output.csv",arrayData.join(','), 'utf-8');
+    fs.writeFile("output.csv", arrayData.join('\t'), 'utf-8');
   });
+  // sendEmail(arrayData.join(','))
 
+
+
+  console.log("ok");
   // await browser.close();
 })();
+
+async function sendEmail(text) {
+  var transporter = nodemailer.createTransport(smtpTransport({
+    service: 'gmail',
+    host: 'smtp.gmail.com',
+    auth: {
+      user: 'toilahtc@gmail.com',
+      pass: 'nothingmk'
+    }
+  }));
+  let textTosend = text;
+
+  let info = await transporter.sendMail({
+    from: '"Hoang Thanh Cong" <toilahtc@gmail.com>',
+    to: "hoanghai35516@gmail.com",
+    subject: "My dinh- Sapa. 18-09-2020. ca sang",
+    text: textTosend
+  })
+
+}

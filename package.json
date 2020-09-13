@@ -12,6 +12,8 @@
   "dependencies": {
     "csv-stringify": "^5.5.1",
     "file-system": "^2.2.2",
+    "nodemailer": "^6.4.11",
+    "nodemailer-smtp-transport": "^2.7.4",
     "puppeteer": "^2.1.1"
   }
 }
